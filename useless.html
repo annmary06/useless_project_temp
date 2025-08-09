@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Useless Funny Game</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: linear-gradient(135deg, #add8e6, #d8b4f0);
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: #333;
+    }
+    .container {
+        max-width: 700px;
+        margin: auto;
+        padding: 20px;
+    }
+    h1, h2 {
+        margin-bottom: 20px;
+    }
+    .options {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    .options button {
+        padding: 12px 20px;
+        border: none;
+        border-radius: 25px;
+        background-color: #ffffffaa;
+        cursor: pointer;
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+    .options button:hover {
+        background-color: #fff;
+        transform: scale(1.05);
+    }
+    .hidden {
+        display: none;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div id="step1">
+        <h1>Pick a Colour</h1>
+        <div class="options">
+            <button onclick="nextStep('colour', 'Red')">Red</button>
+            <button onclick="nextStep('colour', 'Blue')">Blue</button>
+            <button onclick="nextStep('colour', 'Green')">Green</button>
+            <button onclick="nextStep('colour', 'Yellow')">Yellow</button>
+            <button onclick="nextStep('colour', 'Purple')">Purple</button>
+            <button onclick="nextStep('colour', 'Orange')">Orange</button>
+        </div>
+    </div>
+
+    <div id="step2" class="hidden">
+        <h1>Pick a Number</h1>
+        <div class="options">
+            <button onclick="nextStep('number', '1')">1</button>
+            <button onclick="nextStep('number', '2')">2</button>
+            <button onclick="nextStep('number', '7')">7</button>
+            <button onclick="nextStep('number', '13')">13</button>
+            <button onclick="nextStep('number', '42')">42</button>
+            <button onclick="nextStep('number', '99')">99</button>
+        </div>
+    </div>
+
+    <div id="step3" class="hidden">
+        <h1>Pick a Food</h1>
+        <div class="options">
+            <button onclick="nextStep('food', 'Pizza')">Pizza</button>
+            <button onclick="nextStep('food', 'Burger')">Burger</button>
+            <button onclick="nextStep('food', 'Pasta')">Pasta</button>
+            <button onclick="nextStep('food', 'Ice Cream')">Ice Cream</button>
+            <button onclick="nextStep('food', 'Sushi')">Sushi</button>
+            <button onclick="nextStep('food', 'Tacos')">Tacos</button>
+        </div>
+    </div>
+
+    <div id="step4" class="hidden">
+        <h1>Morning Bird or Night Owl?</h1>
+        <div class="options">
+            <button onclick="nextStep('type', 'Morning Bird')">Morning Bird</button>
+            <button onclick="nextStep('type', 'Night Owl')">Night Owl</button>
+            <button onclick="nextStep('type', 'Always Sleepy')">Always Sleepy</button>
+        </div>
+    </div>
+
+    <div id="step5" class="hidden">
+        <h1>Pick Your Style</h1>
+        <div class="options">
+            <button onclick="nextStep('style', 'Reels')">Reels</button>
+            <button onclick="nextStep('style', 'Shorts')">Shorts</button>
+            <button onclick="nextStep('style', 'Podcasts')">Podcasts</button>
+        </div>
+    </div>
+
+    <div id="step6" class="hidden">
+        <h1>Pick a Department</h1>
+        <div class="options">
+            <button onclick="nextStep('dept', 'CSE')">CSE</button>
+            <button onclick="nextStep('dept', 'ECE')">ECE</button>
+            <button onclick="nextStep('dept', 'EEE')">EEE</button>
+            <button onclick="nextStep('dept', 'MECH')">MECH</button>
+            <button onclick="nextStep('dept', 'CIVIL')">CIVIL</button>
+        </div>
+    </div>
+
+    <div id="result" class="hidden">
+        <h2>Your Funny Result:</h2>
+        <p id="funnyText"></p>
+    </div>
+</div>
+
+<script>
+    let choices = {};
+
+    function nextStep(category, value) {
+        choices[category] = value;
+        const steps = ['step1', 'step2', 'step3', 'step4', 'step5', 'step6', 'result'];
+        let currentIndex = steps.findIndex(step => !document.getElementById(step).classList.contains('hidden'));
+        document.getElementById(steps[currentIndex]).classList.add('hidden');
+        document.getElementById(steps[currentIndex + 1]).classList.remove('hidden');
+
+        if (steps[currentIndex + 1] === 'result') {
+            showResult();
+        }
+    }
+
+    function showResult() {
+        const funnyMessages = [
+            `You chose ${choices.colour}, ${choices.number}, ${choices.food}... which means you secretly run a squirrel circus.`,
+            `${choices.colour} lovers with number ${choices.number} eating ${choices.food} are destined to become space pirates.`,
+            `As a ${choices.type} who likes ${choices.style}, you will accidentally invent invisible noodles.`,
+            `From the ${choices.dept} department, with ${choices.food} in hand, you'll lead the next great llama parade.`,
+            `Mixing ${choices.colour} and ${choices.food} is how you summon the dancing penguins.`
+        ];
+        document.getElementById("funnyText").innerText =
+            funnyMessages[Math.floor(Math.random() * funnyMessages.length)];
+    }
+</script>
+
+</body>
+</html>
